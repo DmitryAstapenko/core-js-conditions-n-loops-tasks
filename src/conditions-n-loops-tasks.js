@@ -406,8 +406,32 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotatedMatrix = [];
+  const resultMatrix = matrix;
+
+  for (let i = 0; i < matrix[0].length; i += 1) {
+    rotatedMatrix[i] = [];
+  }
+
+  let k = 0;
+  let l = 0;
+  for (let j = 0; j < matrix.length; j += 1) {
+    for (let i = matrix[j].length - 1; i >= 0; i -= 1) {
+      rotatedMatrix[k][l] = matrix[i][j];
+      l += 1;
+    }
+    k += 1;
+    l = 0;
+  }
+
+  for (let i = 0; i < resultMatrix.length; i += 1) {
+    for (let j = 0; j < resultMatrix[i].length; j += 1) {
+      resultMatrix[i][j] = rotatedMatrix[i][j];
+    }
+  }
+
+  return resultMatrix;
 }
 
 /**
@@ -424,8 +448,26 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const array = arr;
+  let minIndex;
+  let buffer;
+
+  for (let i = 0; i < array.length; i += 1) {
+    minIndex = i;
+
+    for (let j = i + 1; j < array.length; j += 1) {
+      if (array[minIndex] > array[j]) {
+        minIndex = j;
+      }
+    }
+
+    buffer = array[i];
+    array[i] = array[minIndex];
+    array[minIndex] = buffer;
+  }
+
+  return array;
 }
 
 /**
@@ -445,8 +487,30 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let newStr = str;
+  let newIterations = iterations;
+  let strLeft = '';
+  let strRight = '';
+
+  for (let i = 0; i < newIterations; i += 1) {
+    for (let j = 0; j < newStr.length; j += 1) {
+      if (j % 2) {
+        strRight += newStr[j];
+      } else {
+        strLeft += newStr[j];
+      }
+    }
+    newStr = strLeft + strRight;
+    strLeft = '';
+    strRight = '';
+
+    if (str === newStr) {
+      newIterations = i + 1 + (iterations % (i + 1));
+    }
+  }
+
+  return newStr;
 }
 
 /**
